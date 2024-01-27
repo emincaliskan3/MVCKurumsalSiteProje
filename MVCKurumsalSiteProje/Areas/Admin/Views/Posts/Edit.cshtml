@@ -1,24 +1,22 @@
-﻿@model MVCKurumsalSiteProje.Models.Category
+﻿@model MVCKurumsalSiteProje.Models.Post
 
 @{
-    ViewBag.Title = "Kategori Düzenle";
+    ViewBag.Title = "İçerik Düzenle";
 }
 
-<h2>Kategori Düzenle</h2>
+<h2>İçerik Düzenle</h2>
 
-@using ((Html.BeginForm("Edit", "Categories", FormMethod.Post, new { enctype = "multipart/form-data" })))
+@using ((Html.BeginForm("Edit", "Posts", FormMethod.Post, new { enctype = "multipart/form-data" })))
 {
     @Html.AntiForgeryToken()
     
 <div class="form-horizontal">
-
+    <h4>Post</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.Id)
     @Html.HiddenFor(model => model.CreateDate)
     @Html.HiddenFor(model => model.Image)
-
-
 
     <div class="form-group">
         @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -41,7 +39,7 @@
         <div class="col-md-10">
             @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control", type = "file" } })
             @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
-            <img src="~/Images/@Model.Image" alt="Resim Yüklenmemiş"  height="75"/>
+            <img src="~/Images/@Model.Image" alt="Resim Yüklenmemiş" height="75" />
         </div>
     </div>
 
@@ -66,6 +64,14 @@
     </div>
 
     <div class="form-group">
+        @Html.LabelFor(model => model.CategoryId, "CategoryId", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group mt-3">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Kaydet" class="btn btn-success" />
         </div>
@@ -76,5 +82,3 @@
 <div>
     @Html.ActionLink("Listeye Dön", "Index")
 </div>
-
-

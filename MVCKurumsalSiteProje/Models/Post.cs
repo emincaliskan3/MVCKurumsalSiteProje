@@ -9,9 +9,9 @@ namespace MVCKurumsalSiteProje.Models
     public class Post : IEntity
     {
         public int Id { get; set; }
-        [Display(Name = "Başlık"), StringLength(50), Required]
+        [Display(Name = "Başlık"), StringLength(150), Required]
         public string Name { get; set; }
-        [Display(Name = "Açıklama")]
+        [Display(Name = "Açıklama"), DataType(DataType.MultilineText)]
         public string Description { get; set; }
         [Display(Name = "Resim"), StringLength(100)]
         public string Image { get; set; }

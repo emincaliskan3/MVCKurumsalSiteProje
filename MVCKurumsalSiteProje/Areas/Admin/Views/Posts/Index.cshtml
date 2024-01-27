@@ -1,10 +1,10 @@
-﻿@model IEnumerable<MVCKurumsalSiteProje.Models.Category>
+﻿@model IEnumerable<MVCKurumsalSiteProje.Models.Post>
 
 @{
-    ViewBag.Title = "Kategoriler";
+    ViewBag.Title = "İçerikler";
 }
 
-<h2>Kategoriler</h2>
+<h2>İçerikler</h2>
 
 <p>
     @Html.ActionLink("Yeni Ekle", "Create")
@@ -12,9 +12,12 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.Category.Name)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
-        
+       
         <th>
             @Html.DisplayNameFor(model => model.Image)
         </th>
@@ -24,20 +27,20 @@
         <th>
             @Html.DisplayNameFor(model => model.IsHome)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreateDate)
-        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.Category.Name)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
-        
-        <td><img src="~/Images/@item.Image" alt="Resim Yüklenmemiş" height="34" />
-            
+       
+        <td>
+            <img src="~/Images/@item.Image" alt="Resim Yüklenmemiş" height="34" />
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.IsActive)
@@ -46,10 +49,8 @@
             @Html.DisplayFor(modelItem => item.IsHome)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CreateDate)
-        </td>
-        <td>
             @Html.ActionLink("Düzenle", "Edit", new { id=item.Id }) |
+            
             @Html.ActionLink("Sil", "Delete", new { id=item.Id })
         </td>
     </tr>
