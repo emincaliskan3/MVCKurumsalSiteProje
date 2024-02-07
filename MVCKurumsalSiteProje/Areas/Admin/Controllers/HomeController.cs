@@ -7,6 +7,7 @@ using System.Web.Security;
 
 namespace MVCKurumsalSiteProje.Areas.Admin.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         // GET: Admin/Home

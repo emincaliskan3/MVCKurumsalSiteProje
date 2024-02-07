@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace MVCKurumsalSiteProje.Areas.Admin.Controllers
 {
+    [Authorize]
     public class PostsController : Controller
     {
         DatabaseContext context = new DatabaseContext();
@@ -61,7 +62,7 @@ namespace MVCKurumsalSiteProje.Areas.Admin.Controllers
         // GET: Admin/Posts/Edit/5
         public ActionResult Edit(int? id)
         {
-            ViewBag.CategoryId = new SelectList(context.Categories, "Id", "Name");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -71,7 +72,7 @@ namespace MVCKurumsalSiteProje.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CategoryId = new SelectList(context.Categories, "Id", "Name");
+            ViewBag.CategoryId = new SelectList(context.Categories, "Id", "Name", data.CategoryId); // burdaki son parametre ekran açılışında seçili değeri belirler.
             return View(data);
         }
 
@@ -105,19 +106,31 @@ namespace MVCKurumsalSiteProje.Areas.Admin.Controllers
         }
 
         // GET: Admin/Posts/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var data = context.Posts.Find(id);
+            if (data == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(data);
         }
 
         // POST: Admin/Posts/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, Post collection)
         {
             try
             {
-                // TODO: Add delete logic here
 
+                context.Entry(collection).State = System.Data.Entity.EntityState.Deleted;
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
